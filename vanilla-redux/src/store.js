@@ -28,6 +28,11 @@ const reducer = (state = [], action) => {
   }
 };
 
+export const actionCreators = {
+  addToDo,
+  delToDo,
+};
+
 const store = createStore(reducer);
 
 export default store;

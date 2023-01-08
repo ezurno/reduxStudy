@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { actionCreators } from "../store";
 
-function Home({ toDos }) {
+function Home({ toDos, addToDo }) {
+  // actionCreator 와 state를 가져옴
   const [text, setText] = useState("");
 
   const onChange = (event) => {
@@ -11,6 +13,7 @@ function Home({ toDos }) {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(text);
+    addToDo(text);
     setText("");
   };
 
@@ -30,5 +33,13 @@ function mapStateToProps(state) {
   return { toDos: state };
 } // redux reducer로 부터 현재 state 값을 가져옴
 
-export default connect(mapStateToProps)(Home);
+function mapDispatchProps(dispatch) {
+  return {
+    addToDo: (text) => dispatch(actionCreators.addToDo(text)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchProps)(Home);
 // store에 Home 연결. currying 해야 함.
+// connect 함수의 첫번째 args는 state, 두번째는 dispatch
+// dispatch만 할 경우 connect(null, ...)
