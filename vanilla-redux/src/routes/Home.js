@@ -21,6 +21,11 @@ function Home() {
     setText("");
   };
 
+  const btnOnClick = (event) => {
+    const targetId = parseInt(event.target.parentNode.id);
+    dispatch({ type: "DEL", id: targetId });
+  };
+
   return (
     <div>
       <h1>Input value</h1>
@@ -28,7 +33,14 @@ function Home() {
         <input type="text" value={text} onChange={onChange}></input>
         <button>Submit</button>
       </form>
-      <ul>{JSON.stringify(toDo)}</ul>
+      <ul>
+        {toDo.map((state) => (
+          <li key={state.id} id={state.id}>
+            {state.text}
+            <button onClick={btnOnClick}>X</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
