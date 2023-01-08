@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../store";
 
-function Home({ toDos, addToDo }) {
+function Home() {
   // actionCreator 와 state를 가져옴
   const [text, setText] = useState("");
+
+  const toDo = useSelector((state) => state);
+  // store에서 현재 state 값 가져오는 방법
+  const dispatch = useDispatch();
+  // dispatch 사용
 
   const onChange = (event) => {
     setText(event.target.value);
@@ -12,8 +17,7 @@ function Home({ toDos, addToDo }) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(text);
-    addToDo(text);
+    dispatch(actionCreators.addToDo(text));
     setText("");
   };
 
@@ -24,22 +28,9 @@ function Home({ toDos, addToDo }) {
         <input type="text" value={text} onChange={onChange}></input>
         <button>Submit</button>
       </form>
-      <ul>{JSON.stringify(toDos)}</ul>
+      <ul>{JSON.stringify(toDo)}</ul>
     </div>
   );
 }
 
-function mapStateToProps(state) {
-  return { toDos: state };
-} // redux reducer로 부터 현재 state 값을 가져옴
-
-function mapDispatchProps(dispatch) {
-  return {
-    addToDo: (text) => dispatch(actionCreators.addToDo(text)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchProps)(Home);
-// store에 Home 연결. currying 해야 함.
-// connect 함수의 첫번째 args는 state, 두번째는 dispatch
-// dispatch만 할 경우 connect(null, ...)
+export default Home;
