@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../store";
+import ToDo from "../components/ToDo";
 
 function Home() {
   // actionCreator 와 state를 가져옴
@@ -35,10 +36,12 @@ function Home() {
       </form>
       <ul>
         {toDo.map((state) => (
-          <li key={state.id} id={state.id}>
-            {state.text}
-            <button onClick={btnOnClick}>X</button>
-          </li>
+          <ToDo
+            id={state.id}
+            text={state.text}
+            btnOnClick={btnOnClick}
+            key={state.id}
+          />
         ))}
       </ul>
     </div>
