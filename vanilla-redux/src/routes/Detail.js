@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { remove } from "../store";
 import ToDo from "../components/ToDo";
 
 export default function Detail() {
@@ -41,7 +42,7 @@ export default function Detail() {
             btnOnClick={(event) => {
               console.log("Hello");
               const targetId = parseInt(event.target.parentNode.id);
-              dispatch({ type: "DEL", payload: targetId });
+              dispatch(remove(targetId));
             }}
           />
         ))}

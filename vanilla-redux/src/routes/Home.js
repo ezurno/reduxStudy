@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators } from "../store";
+import { add, remove } from "../store";
 import ToDo from "../components/ToDo";
 
 function Home() {
@@ -18,14 +18,14 @@ function Home() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(actionCreators.addToDo(text));
+    dispatch(add(text));
     setText("");
   };
 
   const btnOnClick = (event) => {
     console.log("Hello");
     const targetId = parseInt(event.target.parentNode.id);
-    dispatch({ type: "DEL", payload: targetId });
+    dispatch(remove(targetId));
   };
 
   return (
