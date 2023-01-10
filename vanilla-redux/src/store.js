@@ -1,32 +1,7 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-
-// const addToDo = createAction("ADD");
-// const delToDo = createAction("DEL");
-// toolkit 으로 addToDo의 type이 ADD 인 action 생성, payload는 입력 하는 값이 됨
-
-// const reducer = (state = [], action) => {
-//   switch (action.type) {
-//     case addToDo.type:
-//       return [{ text: action.payload, id: Date.now() }, ...state];
-//     case delToDo.type:
-//       console.log(action);
-//       return state.filter((toDo) => toDo.id !== parseInt(action.payload));
-//     default:
-//       return state;
-//   }
-// };
-
-// const reducer = createReducer([], {
-//   [addToDo]: (state, action) => {
-//     state.push({ text: action.payload, id: Date.now() });
-//     // redux toolkit 에서는 mutate도 가능. 다만 return은 X
-//   },
-//   [delToDo]: (state, action) => {
-//     return state.filter((toDo) => toDo.id !== parseInt(action.payload));
-//     // mutate 아닌 새로운 값을 리턴 할 시에는 return 사용 가능
-//   },
-// });
-// // createReducer 의 첫 args는 initialStateValue
+import {
+  /*combineReducers,*/ configureStore,
+  createSlice,
+} from "@reduxjs/toolkit";
 
 const toDos = createSlice({
   name: "toDosReducer",
@@ -41,6 +16,26 @@ const toDos = createSlice({
   },
 });
 
+// const testReducer = createSlice({
+//   name: "testReducer",
+//   initialState: 0,
+//   reducers: {
+//     test: (state, action) => {
+//       state + 1;
+//     },
+//   },
+// }); // 가상의 reducer 추가
+
+/*--------------두개 이상의 reducer를 관리 할 시
+const allReducer = combineReducers({
+  toDos,
+  testReducer,
+});
+
+const store = configureStore({ reducer: allReducer });
+만약 배열 데이터를 뽑을 시 const data = useSelector(state => state);로 가져왔으면
+data.ReduceName.map()으로 꺼낼 수 있음
+*/
 export const { add, remove } = toDos.actions;
 
 const store = configureStore({ reducer: toDos.reducer });
