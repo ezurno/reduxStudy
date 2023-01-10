@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import ToDo from "../components/ToDo";
 
@@ -6,6 +6,8 @@ export default function Detail() {
   const detailId = useParams();
   // 주솟값의 Parameter로 값을 가져옴 오브젝트 형식
   console.log(detailId);
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   // route를 간단하게 쓰는 useHook
@@ -32,7 +34,16 @@ export default function Detail() {
       <h2>others</h2>
       <ul>
         {others.map((todo) => (
-          <ToDo id={todo.id} text={todo.text} key={todo.id} />
+          <ToDo
+            id={todo.id}
+            text={todo.text}
+            key={todo.id}
+            btnOnClick={(event) => {
+              console.log("Hello");
+              const targetId = parseInt(event.target.parentNode.id);
+              dispatch({ type: "DEL", payload: targetId });
+            }}
+          />
         ))}
       </ul>
 

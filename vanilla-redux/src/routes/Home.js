@@ -23,6 +23,7 @@ function Home() {
   };
 
   const btnOnClick = (event) => {
+    console.log("Hello");
     const targetId = parseInt(event.target.parentNode.id);
     dispatch({ type: "DEL", payload: targetId });
   };
