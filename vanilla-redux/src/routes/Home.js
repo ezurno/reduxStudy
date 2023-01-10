@@ -24,7 +24,7 @@ function Home() {
 
   const btnOnClick = (event) => {
     const targetId = parseInt(event.target.parentNode.id);
-    dispatch({ type: "DEL", id: targetId });
+    dispatch({ type: "DEL", payload: targetId });
   };
 
   return (
